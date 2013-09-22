@@ -1,19 +1,16 @@
+# -*- coding: utf-8 -*-
 from django import forms
 from django.forms import widgets
-from catalog.models import Clients
+from catalog.models import Client
 
 
-KIND_OF_PRODUCT = (
+KIND_PRODUCTS = (
     ('bra', 'Бра'),
-    ('lustre',
-     (
-         ('ceil_lust', 'Потолочная люстра'),
-         ('pend_lust', 'Подвесная люстра'),
-     )
-    ),
-    ('bulb', 'Лампочка'),
-    ('t_lamp', 'Настольная лампа'),
+    ('lustr_ceil', 'Потолочная люстра'),
+    ('lustr_hang', 'Подвесная люстра'),
     ('torch', 'Торшер'),
+    ('table_lamp', 'Настольная лампа'),
+    ('bulb', 'Лампочка'),
 )
 
 
@@ -39,14 +36,14 @@ class IntervalWidgets(widgets.MultiWidget):
 
     def decompress(self, value):
         if value:
-            return [self.begin, self.end]
+            return [value.begin, value.end]
         else:
             return [None, None]
 
 
 class IntervalField(forms.MultiValueField):
-    def __init__(self, widgets, field_cons, *args):
-        super(IntervalField, self).__init__(fields=(field_cons(*args), field_cons(*args))), widgets)
+    def __init__(self, widg=None, kind=None, attr=None):
+        super(IntervalField, self).__init__(fields=(kind(attr), kind(attr)), widget=widg)
 
     def compress(self, data_list):
         if not (len(data_list) == 2):
@@ -60,9 +57,9 @@ class IntervalField(forms.MultiValueField):
 
 class ClientForm(forms.ModelForm):
     class Meta:
-        model = Clients
+        model = Client
 
 
 class ProductForm(forms.Form):
-    price = IntervalField(IntervalWidgets, forms.DecimalField, 8, 2)
-    kind = forms.MultipleChoiceField(choices=KIND_OF_PRODUCT, widget=widgets.CheckboxSelectMultiple)
+    price = IntervalField(widg=IntervalWidgets, kind=forms.DecimalField, attr={'max_digits': 8, 'decimal_places': 2})
+    kind = forms.MultipleChoiceField(choices=KIND_PRODUCTS, widget=widgets.CheckboxSelectMultiple)
