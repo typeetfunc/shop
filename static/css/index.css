@@ -50,11 +50,20 @@ html,body{
 	background-color: #b6a48b;
 	float: left;
 	margin-top: -20px;
-	width: 195px;
+	width: 19.9%;
 	height: 110%;
-	border-right: 1px solid #443f3d;
+	//border-right: 1px solid #443f3d;
 	position: relative;
 	box-shadow: -8px 10px 20px -8px;
+	z-index: 1;	
+}
+#line{
+	width: 0.2%;
+	background-color: #443f3d;
+	float: left;
+	margin-top: -20px;
+	height: 110%;
+	position: relative;
 	z-index: 1;	
 }
 .left_menu{
@@ -107,7 +116,7 @@ html,body{
 	background-color: #e0ded1;
 	float: right;
 	margin-top: -20px;
-	width: 764px;
+	width: 79.9%;
 	height: 110%;
 	z-index: 1;
 	box-shadow: 8px 10px 20px -8px;
