@@ -1,0 +1,24 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<form action="/catalog" method="GET">
+	{{ form }}
+	<input type="submit"/>
+</form>
+<ol>
+	{% for group in groups_products %}
+        <li><h3>{{ group.name }}</h3></li>
+            <ul>
+	        {% for product in group.set %}
+                <li>{{ product }}</li>
+            {% endfor %}
+            </ul>
+	{% endfor %}
+</ol>
+</body>
+</html>
