@@ -8,7 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 	url(r'^$', index),
-	url(r'^catalog/', show_catalog),
+	url(r'^catalog/', include('catalog.urls')),
 	# Examples:
 	# url(r'^$', 'shop.views.home', name='home'),
 	# url(r'^shop/', include('shop.foo.urls')),

@@ -3,4 +3,5 @@ from catalog.views import *
 
 urlpatterns = patterns('',
 	url(r'^$', catalog_index),
+	url(r'^product/$', show_product),
 	)
